@@ -1,9 +1,5 @@
 package org.pflb.vault;
 
-import lombok.extern.log4j.Log4j;
-import org.pflb.vault.model.Person;
-import org.pflb.vault.model.PersonDragon;
-import org.pflb.vault.model.PersonElf;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
@@ -13,9 +9,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.sql.SQLException;
-import java.util.Comparator;
-import java.util.TreeMap;
-import java.util.stream.IntStream;
 
 @Configuration
 @ComponentScan
@@ -28,10 +21,10 @@ public class CustomRPG {
 
     public static void main(String[] args) throws SQLException {
         SpringApplication.run(CustomRPG.class, args);
-
-        Comparator<Person> comparator = new Comparator<Person>() {
+/*
+            Comparator<Creature> comparator = new Comparator<Creature>() {
             @Override
-            public int compare(Person person1, Person person2) {
+            public int compare(Creature person1, Creature person2) {
                 if (person1.getLevel() > person2.getLevel()) {
                     return 1;
                 } else if (person1.getLevel() < person2.getLevel()) {
@@ -44,15 +37,15 @@ public class CustomRPG {
             }
         };
 
-        TreeMap<Person, String> personsDictionary = new TreeMap<>(comparator);
+        TreeMap<Creature, String> personsDictionary = new TreeMap<>(comparator);
 
         for (int i = 2; i < 100; i++) {
-            Person elfGenerated = new PersonElf(i, "Elf" + i);
+            Creature elfGenerated = new CreatureElf(i, "Elf" + i);
             personsDictionary.put(elfGenerated, "" + Math.random());
         }
 
         for (int i = 2; i < 100; i++) {
-            Person dragonGenerated = new PersonDragon(i, "Dragon" + i);
+            Creature dragonGenerated = new CreatureDragon(i, "Dragon" + i);
             personsDictionary.put(dragonGenerated, "" + Math.random());
         }
 
@@ -64,7 +57,51 @@ public class CustomRPG {
                 .sum();
 
         System.out.println(sum);
-
+*/
     }
 
 }
+
+/*
+Первичный ключ -
+
+Sneil - переменные пишуся через нижнее подчеркивание
+
+Версиронирование базы данных
+FlyWayDB, Apache +in
+
+insert into PERSON values (4, 100, 'imya', 7, 1);
+select * from PERSON where level > 2 and hitponts > 1
+
+
+ALTER TABLE PERSON CHANGE HITPONTS HITPOINTS NUMBER - ПЕРЕИМЕНОВАТЬ
+
+Агрегация - работа с разу с нес
+
+select * from PERSON, WEAPON where  WEAPON.person_id = PERSON.id;
+
+select * from PERSON where id = (select PERSON_id from WEAPON where quality in (select max(quality) from WEAPON));
+
+select * from PERSON inner join WEAPON on WEAPON.person_id = PERSON.id; - это типа правильно
+inner join - когда есть все данные (например нет челиков без оружия)
+left join - когда не у всех есть оружие, но чтобы их тоже вывело
+right
+outer
+
+left и right определяют главенство одной из таблиц
+inner - полное пересечение, где подходит условие после where
+
+
+distinct - фильтр после select, который убирает повторения
+
+Валидация
+
+Check uncheck исключения
+
+Если в методе используется наследник Runtime исключения, то его можно явно де декларировать в начале
+
+Spring потрошитель Евгений Борисов
+
+Анотация Scope 
+
+ */
