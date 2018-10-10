@@ -22,9 +22,9 @@ public class CustomRPG {
     public static void main(String[] args) throws SQLException {
         SpringApplication.run(CustomRPG.class, args);
 /*
-            Comparator<Creature> comparator = new Comparator<Creature>() {
+            Comparator<CreatureManagingService> comparator = new Comparator<CreatureManagingService>() {
             @Override
-            public int compare(Creature person1, Creature person2) {
+            public int compare(CreatureManagingService person1, CreatureManagingService person2) {
                 if (person1.getLevel() > person2.getLevel()) {
                     return 1;
                 } else if (person1.getLevel() < person2.getLevel()) {
@@ -37,15 +37,15 @@ public class CustomRPG {
             }
         };
 
-        TreeMap<Creature, String> personsDictionary = new TreeMap<>(comparator);
+        TreeMap<CreatureManagingService, String> personsDictionary = new TreeMap<>(comparator);
 
         for (int i = 2; i < 100; i++) {
-            Creature elfGenerated = new CreatureElf(i, "Elf" + i);
+            CreatureManagingService elfGenerated = new CreatureElf(i, "Elf" + i);
             personsDictionary.put(elfGenerated, "" + Math.random());
         }
 
         for (int i = 2; i < 100; i++) {
-            Creature dragonGenerated = new CreatureDragon(i, "Dragon" + i);
+            CreatureManagingService dragonGenerated = new CreatureDragon(i, "Dragon" + i);
             personsDictionary.put(dragonGenerated, "" + Math.random());
         }
 
@@ -102,6 +102,11 @@ Check uncheck исключения
 
 Spring потрошитель Евгений Борисов
 
-Анотация Scope 
+Анотация Scope
+
+maven central
+mvnrepository.com
+
+hibernate ORM
 
  */

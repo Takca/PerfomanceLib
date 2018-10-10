@@ -1,124 +1,39 @@
 package org.pflb.vault.model;
 
-import java.util.Objects;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-public abstract class Creature {
+import javax.persistence.*;
+import java.io.Serializable;
 
-    private static int creaturesCount;
+@ToString
+@EqualsAndHashCode
+@Getter
+@Setter
+@Entity
+@Table(name = "CREATURE")
+public class Creature implements Serializable {
 
-    private int hitPoints;
-    private RaceType race;
-    private int damagePerSecond;
+    @Id
+    @Column (name = "id")
+    private Long id;
+
+    @Column (name = "name")
     private String name;
+
+    @Column (name = "level")
     private int level;
 
-    public boolean isNotDeadYet = true;
+    @Enumerated
+    @Column (name = "race")
+    private RaceType race;
 
-    public Creature(int level, String name) {
-        creaturesCount++;
-        this.setLevel(level);
-        this.setName(name);
-        init(level);
-    }
+    @Column (name = "dps")
+    private int damagePerSecond;
 
-    public int getHitPoints() {
-        return hitPoints;
-    }
+    @Column (name = "hp")
+    private int hitPoints;
 
-    public RaceType getRace() {
-        return race;
-    }
-
-    public int getDamagePerSecond() {
-        return damagePerSecond;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public static int getCreaturesCount() {
-        return creaturesCount;
-    }
-
-    protected void setHitPoints(int hitPoints) {
-        this.hitPoints = hitPoints;
-    }
-
-    protected void setRace(RaceType race) {
-        this.race = race;
-    }
-
-    protected void setDamagePerSecond(int damagePerSecond) {
-        this.damagePerSecond = damagePerSecond;
-    }
-
-    protected void setName(String name) {
-        this.name = name;
-    }
-
-    protected void setLevel(int level) {
-        this.level = level;
-    }
-
-    protected abstract int getInitialDPS();
-
-    protected abstract int getDPS_PER_LEVEL();
-
-    protected abstract int getInitialHP();
-
-    protected abstract int getHP_PER_LEVEL();
-
-    protected void init(int level) {
-        this.setDamagePerSecond(getInitialDPS() + level * getDPS_PER_LEVEL());
-        this.setHitPoints(getInitialHP() + level * getHP_PER_LEVEL());
-    }
-
-
-    @Override
-    public String toString() {
-        return "Creature{" +
-                "hitPoints=" + hitPoints +
-                ", race=" + race +
-                ", damagePerSecond=" + damagePerSecond +
-                ", name='" + name + '\'' +
-                ", level=" + level +
-                '}';
-    }
-
-
-
-
-    public boolean isDead() {
-        if (!isNotDeadYet) {
-            return true;
-        }
-        if (hitPoints > 0) {
-            return false;
-        }
-        isNotDeadYet = false;
-        return true;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Creature person = (Creature) o;
-        return hitPoints == person.hitPoints &&
-                damagePerSecond == person.damagePerSecond &&
-                level == person.level &&
-                isNotDeadYet == person.isNotDeadYet &&
-                race == person.race &&
-                Objects.equals(name, person.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(hitPoints, race, damagePerSecond, name, level, isNotDeadYet);
-    }
 }

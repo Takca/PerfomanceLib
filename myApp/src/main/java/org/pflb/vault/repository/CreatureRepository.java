@@ -1,13 +1,14 @@
-package org.pflb.vault.service;
+package org.pflb.vault.repository;
 
 import org.pflb.vault.model.Creature;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface CreatureCache {
+public interface CreatureRepository extends JpaRepository<Creature, Long>{
 
-    void safeCreature(Creature creature);
     Creature getCreatureByName(String name);
     List<Creature> getAllByDamagePerSecondGreaterThan(Integer damagePerSecondLimit);
 
 }
+

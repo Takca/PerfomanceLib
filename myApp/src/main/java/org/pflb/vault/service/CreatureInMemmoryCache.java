@@ -5,7 +5,9 @@ import org.pflb.vault.model.Creature;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class CreatureInMemmoryCache implements CreatureCache {
@@ -17,5 +19,10 @@ public class CreatureInMemmoryCache implements CreatureCache {
 
     public Creature getCreatureByName(String cretureName) {
         return cretureStorage.get(cretureName);
+    }
+
+    @Override
+    public List<Creature> getAllByDamagePerSecondGreaterThan(Integer damagePerSecondLimit) {
+        return cretureStorage.values().stream().filter(z -> z.getDamagePerSecond() > damagePerSecondLimit).collect(Collectors.toList());
     }
 }

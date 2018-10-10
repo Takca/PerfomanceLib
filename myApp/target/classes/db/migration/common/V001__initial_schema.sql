@@ -1,18 +1,21 @@
-CREATE TABLE PERSON(
-  id                            NUMBER         NOT NULL,
-  hitpoints                 NUMBER         NOT NULL,
-  race                        VARCHAR(255) NOT NULL,
-  level                       NUMBER         NOT NULL,
-  is_alive                 NUMBER(1,0) NOT NULL
+CREATE TABLE CREATURE(
+  id                        BIGINT         NOT NULL,
+
+  hp                        NUMBER         NOT NULL,
+  dps                       NUMBER         NOT NULL,
+  name                      VARCHAR(255)   NOT NULL,
+  race                      VARCHAR(255)   NOT NULL,
+  level                     NUMBER         NOT NULL,
+
 );
 
-ALTER TABLE PERSON
-  ADD CONSTRAINT PERSON_ID_PK PRIMARY KEY (id);
+ALTER TABLE CREATURE
+  ADD CONSTRAINT CREATURE_ID_PK PRIMARY KEY (id);
 
 CREATE TABLE WEAPON (
 id NUMBER NOT NULL,
 quality NUMBER NOT NULL,
-person_id number
+creature_id number
 );
 
 ALTER TABLE WEAPON
