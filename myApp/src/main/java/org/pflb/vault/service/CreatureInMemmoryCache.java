@@ -2,6 +2,7 @@ package org.pflb.vault.service;
 
 import com.google.common.collect.Maps;
 import org.pflb.vault.model.Creature;
+import org.pflb.vault.model.RaceType;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,25 @@ public class CreatureInMemmoryCache implements CreatureCache {
 
     @Override
     public List<Creature> getAllByDamagePerSecondGreaterThan(Integer damagePerSecondLimit) {
-        return cretureStorage.values().stream().filter(z -> z.getDamagePerSecond() > damagePerSecondLimit).collect(Collectors.toList());
+        return cretureStorage.values()
+                .stream()
+                .filter(z -> z.getDamagePerSecond() > damagePerSecondLimit)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Creature> getAllByRace(RaceType raceType) {
+        return cretureStorage.values()
+                .stream()
+                .filter(z -> z.getRace() == raceType)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Creature> getAllByHitPointsGreaterThanAndLevelEquals(int hitPoints, int level) {
+        return cretureStorage.values()
+                .stream()
+                .filter(z -> z.getHitPoints() > hitPoints && z.getLevel() == level)
+                .collect(Collectors.toList());
     }
 }

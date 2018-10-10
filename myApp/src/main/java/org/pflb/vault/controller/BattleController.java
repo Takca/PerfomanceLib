@@ -37,6 +37,15 @@ public class BattleController {
         return storage.getAllByDamagePerSecondGreaterThan(dps);
     }
 
+    @GetMapping("creaturses/get-all-by-race/{type}")
+    public  List<Creature> getCreature(@PathVariable RaceType type) {
+        return storage.getAllByRace(type);
+    }
+
+    @GetMapping("creatures/get-all-by/{hitPoints}/{level}")
+    public List<Creature> getCreature(@PathVariable int hitPoints, @PathVariable int level) {
+        return storage.getAllByHitPointsGreaterThanAndLevelEquals(hitPoints, level);
+    }
 
     @GetMapping("creature/get/{name}")
     public Creature getCreature(@PathVariable String name) {
