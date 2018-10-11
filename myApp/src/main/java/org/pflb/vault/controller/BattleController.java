@@ -3,10 +3,13 @@ package org.pflb.vault.controller;
 import org.pflb.vault.CustomRpgExeption;
 import org.pflb.vault.model.Creature;
 import org.pflb.vault.model.RaceType;
+import org.pflb.vault.model.User;
+import org.pflb.vault.repository.UserRepository;
 import org.pflb.vault.service.CreatureCache;
 import org.pflb.vault.service.CreatureManagingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,11 +50,16 @@ public class BattleController {
         return storage.getAllByHitPointsGreaterThanAndLevelEquals(hitPoints, level);
     }
 
-    @GetMapping("creature/get/{name}")
-    public Creature getCreature(@PathVariable String name) {
+    @Secured("ROLE_COMMON_USER")
+    @GetMapping("creatures/get/{name}")
+    public Creature getCreature(@PathVariable String name){
         return storage.getCreatureByName(name);
     }
 
+    @GetMapping("creature/get/{name}")
+    public Creature getUser(@PathVariable String name) {
+        return storage.getCreatureByName(name);
+    }
 
     @GetMapping("hello/{value}")
     public String helloWorldMethod(@PathVariable String value) {
