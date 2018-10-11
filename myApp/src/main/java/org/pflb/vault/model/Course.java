@@ -1,6 +1,7 @@
 package org.pflb.vault.model;
 
 import lombok.*;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

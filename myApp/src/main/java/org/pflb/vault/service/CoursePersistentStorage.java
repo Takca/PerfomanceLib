@@ -14,7 +14,7 @@ public class CoursePersistentStorage {
     @Autowired
     CourseRepository courseRepository;
 
-    public void safeCourse(Course course) {
+    public void saveCourse(Course course) {
         courseRepository.save(course);
     }
 

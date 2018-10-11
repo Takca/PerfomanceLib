@@ -4,19 +4,16 @@ import org.pflb.vault.CustomRpgExeption;
 import org.pflb.vault.model.Course;
 import org.pflb.vault.model.Creature;
 import org.pflb.vault.model.RaceType;
+import org.pflb.vault.model.Student;
 import org.pflb.vault.service.CoursePersistentStorage;
 import org.pflb.vault.service.CreatureCache;
 import org.pflb.vault.service.CreatureManagingService;
+import org.pflb.vault.service.StudentPersistentStorage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
 import java.util.List;
 
 @RestController
@@ -31,23 +28,14 @@ public class BattleController {
     private CoursePersistentStorage coursePersistentStorage;
 
     @Autowired
+    private StudentPersistentStorage studentStorage;
+
+    @Autowired
     private CreatureManagingService creatureManagingService;
 
-    @GetMapping("creature/{name}/{level}/{type}")
-    public String createCreature(@PathVariable String name, @PathVariable int level, @PathVariable RaceType type) {
-        Creature creature = creatureManagingService.createCreature(level, name, type);
-        storage.safeCreature(creature);
-        return "Привет " + creature.toString();
-    }
-
-    @GetMapping("/{name}/{dateStart}/{dateEnd}/{numOfDays}")
-    public String createCourse(@PathVariable String name, @PathVariable Date dateStart, @PathVariable Date dateEnd, @PathVariable Long numOfDays) {
-        Course course = new Course();
-        course.setName(name);
-        course.setDateStart(dateStart);
-        course.setDateEnd(dateEnd);
-        course.setNumOfDays(numOfDays);
-        coursePersistentStorage.safeCourse(course);
+    @PostMapping("/courses/")
+    public String createCourse(@RequestBody Course course) {
+        coursePersistentStorage.saveCourse(course);
         return course.toString();
     }
 
@@ -61,8 +49,37 @@ public class BattleController {
     }
 
     @GetMapping("/course/{id}")
-    public String getCourseById(@PathVariable Long id) {
-        return coursePersistentStorage.getCourseById(id).toString();
+    public Course getCourseById(@PathVariable Long id) {
+        return coursePersistentStorage.getCourseById(id);
+    }
+
+    @PostMapping("students/")
+    public String createStudent(@RequestBody Student student) {
+        studentStorage.saveStudent(student);
+        return "Привет, " + student.toString();
+    }
+
+    @GetMapping("students/")
+    public List<Student> getAllStudents() {
+        return studentStorage.getAll();
+    }
+
+    @GetMapping("students/{id}")
+    public Student getStudentById(@PathVariable Long id) {
+        return studentStorage.getStudentById(id);
+    }
+
+    @DeleteMapping("students/{id}")
+    public void deleteStudentById(@PathVariable Long id) {
+        studentStorage.deleteStudentById(id);
+    }
+
+
+    @GetMapping("creature/{name}/{level}/{type}")
+    public String createCreature(@PathVariable String name, @PathVariable int level, @PathVariable RaceType type) {
+        Creature creature = creatureManagingService.createCreature(level, name, type);
+        storage.safeCreature(creature);
+        return "Привет " + creature.toString();
     }
 
     @GetMapping("creature/get-all-with-damage-more-then/{dps}")
@@ -98,7 +115,7 @@ public class BattleController {
     }
 
     @GetMapping("do-impossible/{number}")
-    public int doImposible(@PathVariable String number) {
+    public int doImpossible(@PathVariable String number) {
 
         int i;
 
