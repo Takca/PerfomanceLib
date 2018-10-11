@@ -1,6 +1,5 @@
 package org.pflb.vault.security;
 
-import antlr.collections.List;
 import com.google.common.collect.Lists;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -9,9 +8,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 
 
-/**
- * Created by user1 on 11.10.2018.
- */
 public class RPGUserDetails implements UserDetails {
 
     private String userName;
