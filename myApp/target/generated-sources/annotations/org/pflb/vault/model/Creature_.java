@@ -10,6 +10,7 @@ public abstract class Creature_ {
 
 	public static volatile SingularAttribute<Creature, RaceType> race;
 	public static volatile SingularAttribute<Creature, Integer> level;
+	public static volatile SingularAttribute<Creature, User> creatureCreator;
 	public static volatile SingularAttribute<Creature, Integer> damagePerSecond;
 	public static volatile SingularAttribute<Creature, String> name;
 	public static volatile SingularAttribute<Creature, Integer> hitPoints;
@@ -17,6 +18,7 @@ public abstract class Creature_ {
 
 	public static final String RACE = "race";
 	public static final String LEVEL = "level";
+	public static final String CREATURE_CREATOR = "creatureCreator";
 	public static final String DAMAGE_PER_SECOND = "damagePerSecond";
 	public static final String NAME = "name";
 	public static final String HIT_POINTS = "hitPoints";

@@ -6,16 +6,19 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 
 
 public class RPGUserDetails implements UserDetails {
 
     private String userName;
     private String password;
+    private List<SimpleGrantedAuthority> authorities;
 
-    public RPGUserDetails(String userName, String password) {
+    public RPGUserDetails(String userName, String password, List<SimpleGrantedAuthority> authorities) {
         this.userName = userName;
         this.password = password;
+        this.authorities = authorities;
     }
 
     @Override

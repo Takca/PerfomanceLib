@@ -36,4 +36,7 @@ public class Creature implements Serializable {
     @Column (name = "hp")
     private int hitPoints;
 
+    @ManyToOne
+    private User creatureCreator;
+
 }

@@ -27,4 +27,6 @@ public class StudentPersistentStorage {
     public void deleteStudentById(Long id) {
         studentRepository.deleteById(id);
     }
+
+    public long count(){ return studentRepository.count(); }
 }

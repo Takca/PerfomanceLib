@@ -1,8 +1,10 @@
 package org.pflb.vault.security;
 
+import com.google.common.collect.Lists;
 import org.pflb.vault.model.User;
 import org.pflb.vault.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-public class RPGUserDetailsService implements UserDetailsService {
+public class  RPGUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
@@ -21,6 +23,7 @@ public class RPGUserDetailsService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("В базе нет такого пользователя");
         }
-        return new RPGUserDetails(user.getLogin(), user.getPassword());
+        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(user.getRole());
+        return new RPGUserDetails(user.getLogin(), user.getPassword(), Lists.newArrayList(simpleGrantedAuthority));
     }
 }
