@@ -2,6 +2,10 @@ package org.pflb.vault;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -12,12 +16,18 @@ import java.sql.SQLException;
 
 @Configuration
 @ComponentScan
+@EnableCaching
 @EnableAutoConfiguration
 @EnableScheduling
 @EnableJpaRepositories
 @PropertySource(value = {"classpath:env/${env}/web.properties",
         "classpath:env/${env}/db.properties"})
 public class CustomRPG {
+
+    @Bean
+    public CacheManager cacheManager() {
+        return new ConcurrentMapCacheManager("rofl");
+    }
 
     public static void main(String[] args) throws SQLException {
         SpringApplication.run(CustomRPG.class, args);
@@ -113,5 +123,5 @@ hibernate ORM
 
 Аспектно ориентированное программирование
 
-
+afterMigrate - плгин, который выполняется при старте
  */

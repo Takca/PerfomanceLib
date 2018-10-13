@@ -17,7 +17,7 @@ public class BattleController {
         whoseTurn = 'O';
     }
 
-    public static void proccesGame() {
+    public static void processGame() {
         do {
             read();
 

@@ -3,7 +3,6 @@ package org.pflb.vault.service;
 import com.google.common.collect.Maps;
 import org.pflb.vault.model.Creature;
 import org.pflb.vault.model.RaceType;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
